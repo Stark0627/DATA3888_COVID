@@ -8,7 +8,8 @@ initial_date = 0
 new_case_week = 0
 # Record data per week. So i < 7
 i = 0
-filename = "world_case.csv"
+initial_country = ""
+filename = "fiveCountry_case.csv"
 for lines in open(filename):
     if is_first:
         is_first = False
@@ -17,16 +18,26 @@ for lines in open(filename):
         country = data[0]
         date = data[1]
         if i == 0:
+            initial_country = country
             initial_date = date
         new_case_day = data[2]
-        if i < 6:
-            new_case_week += float(new_case_day)
-            i += 1
-        elif i == 6:
-            new_case_week += float(new_case_day)
-            week_data.append([country, initial_date, new_case_week])
-            new_case_week = 0
-            i = 0
+        if country == initial_country:
+            if i < 6:
+                if new_case_day == "" or new_case_day is None:
+                    new_case_day = 0
+                new_case_week += float(new_case_day)
+                i += 1
+            elif i == 6:
+                new_case_week += float(new_case_day)
+                week_data.append([country, initial_date, new_case_week])
+                new_case_week = 0
+                i = 0
+        else:
+            week_data.append([initial_country, initial_date, new_case_week])
+            new_case_week = float(new_case_day)
+            initial_date = date
+            initial_country = country
+            i = 1
 
 header = ["Country", "Date", "new_case_weekly"]
 file = open("weekly_world_case.csv", "w")

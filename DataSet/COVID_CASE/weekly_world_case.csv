@@ -1,4 +1,586 @@
 Country,Date,new_case_weekly
+Australia,2020-01-26,12.0
+Australia,2020-02-02,3.0
+Australia,2020-02-09,0.0
+Australia,2020-02-16,0.0
+Australia,2020-02-23,10.0
+Australia,2020-03-01,38.0
+Australia,2020-03-08,187.0
+Australia,2020-03-15,821.0
+Australia,2020-03-22,2569.0
+Australia,2020-03-29,1910.0
+Australia,2020-04-05,753.0
+Australia,2020-04-12,265.0
+Australia,2020-04-19,126.0
+Australia,2020-04-26,105.0
+Australia,2020-05-03,140.0
+Australia,2020-05-10,105.0
+Australia,2020-05-17,70.0
+Australia,2020-05-24,78.0
+Australia,2020-05-31,67.0
+Australia,2020-06-07,61.0
+Australia,2020-06-14,141.0
+Australia,2020-06-21,225.0
+Australia,2020-06-28,757.0
+Australia,2020-07-05,1354.0
+Australia,2020-07-12,2005.0
+Australia,2020-07-19,2601.0
+Australia,2020-07-26,3492.0
+Australia,2020-08-02,3189.0
+Australia,2020-08-09,2203.0
+Australia,2020-08-16,1524.0
+Australia,2020-08-23,859.0
+Australia,2020-08-30,608.0
+Australia,2020-09-06,373.0
+Australia,2020-09-13,247.0
+Australia,2020-09-20,142.0
+Australia,2020-09-27,95.0
+Australia,2020-10-04,128.0
+Australia,2020-10-11,127.0
+Australia,2020-10-18,123.0
+Australia,2020-10-25,82.0
+Australia,2020-11-01,63.0
+Australia,2020-11-08,53.0
+Australia,2020-11-15,110.0
+Australia,2020-11-22,71.0
+Australia,2020-11-29,73.0
+Australia,2020-12-06,65.0
+Australia,2020-12-13,138.0
+Australia,2020-12-20,140.0
+Australia,2020-12-27,176.0
+Australia,2021-01-03,111.0
+Australia,2021-01-10,113.0
+Australia,2021-01-17,58.0
+Australia,2021-01-24,45.0
+Australia,2021-01-31,40.0
+Australia,2021-02-07,47.0
+Australia,2021-02-14,28.0
+Australia,2021-02-21,44.0
+Australia,2021-02-28,64.0
+Australia,2021-03-07,83.0
+Australia,2021-03-14,79.0
+Australia,2021-03-21,63.0
+Australia,2021-03-28,89.0
+Australia,2021-04-04,57.0
+Australia,2021-04-11,114.0
+Australia,2021-04-18,144.0
+Australia,2021-04-25,161.0
+Australia,2021-05-02,98.0
+Australia,2021-05-09,53.0
+Australia,2021-05-16,32.0
+Australia,2021-05-23,89.0
+Australia,2021-05-30,77.0
+Australia,2021-06-06,75.0
+Australia,2021-06-13,83.0
+Australia,2021-06-20,168.0
+Australia,2021-06-27,254.0
+Australia,2021-07-04,347.0
+Australia,2021-07-11,799.0
+Australia,2021-07-18,1019.0
+Australia,2021-07-25,1465.0
+Australia,2021-08-01,1945.0
+Australia,2021-08-08,2769.0
+Australia,2021-08-15,4929.0
+Australia,2021-08-22,7230.0
+Australia,2021-08-29,10363.0
+Australia,2021-09-05,11984.0
+Australia,2021-09-12,12025.0
+Australia,2021-09-19,11931.0
+Australia,2021-09-26,13829.0
+Australia,2021-10-03,16083.0
+Australia,2021-10-10,15733.0
+Australia,2021-10-17,15342.0
+Australia,2021-10-24,12018.0
+Australia,2021-10-31,9750.0
+Australia,2021-11-07,9294.0
+Australia,2021-11-14,8834.0
+Australia,2021-11-21,9542.0
+Australia,2021-11-28,9852.0
+Australia,2021-12-05,11089.0
+Australia,2021-12-12,21726.0
+Australia,2021-12-19,49943.0
+Australia,2021-12-26,162361.0
+Australia,2022-01-02,509502.0
+Australia,2022-01-09,753659.0
+Australia,2022-01-16,470754.0
+Australia,2022-01-23,373653.0
+Australia,2022-01-30,183593.0
+Australia,2022-02-06,175034.0
+Australia,2022-02-13,130918.0
+Australia,2022-02-20,157479.0
+Australia,2022-02-27,173918.0
+Australia,2022-03-06,234431.0
+Australia,2022-03-13,303672.0
+Australia,2022-03-20,375072.0
+Australia,2022-03-27,401050.0
+Australia,2022-04-03,383382.0
+Australia,2022-04-10,249216.0
+Canada,2020-01-23,4.0
+Canada,2020-01-30,2.0
+Canada,2020-02-06,3.0
+Canada,2020-02-13,1.0
+Canada,2020-02-20,10.0
+Canada,2020-02-27,39.0
+Canada,2020-03-05,169.0
+Canada,2020-03-12,869.0
+Canada,2020-03-19,3472.0
+Canada,2020-03-26,7454.0
+Canada,2020-04-02,9701.0
+Canada,2020-04-09,10475.0
+Canada,2020-04-16,12266.0
+Canada,2020-04-23,11110.0
+Canada,2020-04-30,10352.0
+Canada,2020-05-07,8023.0
+Canada,2020-05-14,8088.0
+Canada,2020-05-21,6681.0
+Canada,2020-05-28,5453.0
+Canada,2020-06-04,3420.0
+Canada,2020-06-11,2640.0
+Canada,2020-06-18,2410.0
+Canada,2020-06-25,2188.0
+Canada,2020-07-02,2038.0
+Canada,2020-07-09,2510.0
+Canada,2020-07-16,3285.0
+Canada,2020-07-23,3325.0
+Canada,2020-07-30,2650.0
+Canada,2020-08-06,2515.0
+Canada,2020-08-13,2753.0
+Canada,2020-08-20,3013.0
+Canada,2020-08-27,3779.0
+Canada,2020-09-03,4502.0
+Canada,2020-09-10,6275.0
+Canada,2020-09-17,8614.0
+Canada,2020-09-24,12471.0
+Canada,2020-10-01,14159.0
+Canada,2020-10-08,16042.0
+Canada,2020-10-15,16926.0
+Canada,2020-10-22,19452.0
+Canada,2020-10-29,22106.0
+Canada,2020-11-05,30683.0
+Canada,2020-11-12,33700.0
+Canada,2020-11-19,37398.0
+Canada,2020-11-26,42610.0
+Canada,2020-12-03,45906.0
+Canada,2020-12-10,47463.0
+Canada,2020-12-17,47662.0
+Canada,2020-12-24,46587.0
+Canada,2020-12-31,54923.0
+Canada,2021-01-07,52729.0
+Canada,2021-01-14,41849.0
+Canada,2021-01-21,33919.0
+Canada,2021-01-28,27484.0
+Canada,2021-02-04,23506.0
+Canada,2021-02-11,20224.0
+Canada,2021-02-18,21232.0
+Canada,2021-02-25,20425.0
+Canada,2021-03-04,21584.0
+Canada,2021-03-11,23421.0
+Canada,2021-03-18,28828.0
+Canada,2021-03-25,37289.0
+Canada,2021-04-01,48168.0
+Canada,2021-04-08,61149.0
+Canada,2021-04-15,58766.0
+Canada,2021-04-22,55462.0
+Canada,2021-04-29,53164.0
+Canada,2021-05-06,47480.0
+Canada,2021-05-13,35783.0
+Canada,2021-05-20,23933.0
+Canada,2021-05-27,16545.0
+Canada,2021-06-03,11067.0
+Canada,2021-06-10,7911.0
+Canada,2021-06-17,5494.0
+Canada,2021-06-24,4159.0
+Canada,2021-07-01,3148.0
+Canada,2021-07-08,2816.0
+Canada,2021-07-15,2909.0
+Canada,2021-07-22,4038.0
+Canada,2021-07-29,6147.0
+Canada,2021-08-05,11016.0
+Canada,2021-08-12,15079.0
+Canada,2021-08-19,19376.0
+Canada,2021-08-26,24018.0
+Canada,2021-09-02,26299.0
+Canada,2021-09-09,30248.0
+Canada,2021-09-16,30094.0
+Canada,2021-09-23,30382.0
+Canada,2021-09-30,26967.0
+Canada,2021-10-07,22705.0
+Canada,2021-10-14,20144.0
+Canada,2021-10-21,16499.0
+Canada,2021-10-28,15887.0
+Canada,2021-11-04,17668.0
+Canada,2021-11-11,16988.0
+Canada,2021-11-18,18269.0
+Canada,2021-11-25,21164.0
+Canada,2021-12-02,23834.0
+Canada,2021-12-09,35398.0
+Canada,2021-12-16,83122.0
+Canada,2021-12-23,193882.0
+Canada,2021-12-30,274397.0
+Canada,2022-01-06,268859.0
+Canada,2022-01-13,191264.0
+Canada,2022-01-20,119168.0
+Canada,2022-01-27,109410.0
+Canada,2022-02-03,74711.0
+Canada,2022-02-10,57644.0
+Canada,2022-02-17,41394.0
+Canada,2022-02-24,38731.0
+Canada,2022-03-03,43017.0
+Canada,2022-03-10,35724.0
+Canada,2022-03-17,37243.0
+Canada,2022-03-24,51712.0
+Canada,2022-03-31,46763.0
+Canada,2022-04-07,81436.0
+Canada,2022-04-14,18945.0
+Singapore,2020-01-23,7.0
+Singapore,2020-01-30,21.0
+Singapore,2020-02-06,22.0
+Singapore,2020-02-13,34.0
+Singapore,2020-02-20,9.0
+Singapore,2020-02-27,17.0
+Singapore,2020-03-05,68.0
+Singapore,2020-03-12,135.0
+Singapore,2020-03-19,318.0
+Singapore,2020-03-26,369.0
+Singapore,2020-04-02,623.0
+Singapore,2020-04-09,2076.0
+Singapore,2020-04-16,6442.0
+Singapore,2020-04-23,5500.0
+Singapore,2020-04-30,4557.0
+Singapore,2020-05-07,5148.0
+Singapore,2020-05-14,4018.0
+Singapore,2020-05-21,3512.0
+Singapore,2020-05-28,3529.0
+Singapore,2020-06-04,2560.0
+Singapore,2020-06-11,2251.0
+Singapore,2020-06-18,1407.0
+Singapore,2020-06-25,1499.0
+Singapore,2020-07-02,1176.0
+Singapore,2020-07-09,1580.0
+Singapore,2020-07-16,1866.0
+Singapore,2020-07-23,2787.0
+Singapore,2020-07-30,2723.0
+Singapore,2020-08-06,1141.0
+Singapore,2020-08-13,636.0
+Singapore,2020-08-20,464.0
+Singapore,2020-08-27,365.0
+Singapore,2020-09-03,306.0
+Singapore,2020-09-10,348.0
+Singapore,2020-09-17,125.0
+Singapore,2020-09-24,126.0
+Singapore,2020-10-01,75.0
+Singapore,2020-10-08,49.0
+Singapore,2020-10-15,44.0
+Singapore,2020-10-22,54.0
+Singapore,2020-10-29,49.0
+Singapore,2020-11-05,55.0
+Singapore,2020-11-12,44.0
+Singapore,2020-11-19,55.0
+Singapore,2020-11-26,40.0
+Singapore,2020-12-03,61.0
+Singapore,2020-12-10,62.0
+Singapore,2020-12-17,129.0
+Singapore,2020-12-24,87.0
+Singapore,2020-12-31,211.0
+Singapore,2021-01-07,204.0
+Singapore,2021-01-14,213.0
+Singapore,2021-01-21,194.0
+Singapore,2021-01-28,211.0
+Singapore,2021-02-04,145.0
+Singapore,2021-02-11,74.0
+Singapore,2021-02-18,69.0
+Singapore,2021-02-25,89.0
+Singapore,2021-03-04,83.0
+Singapore,2021-03-11,75.0
+Singapore,2021-03-18,99.0
+Singapore,2021-03-25,145.0
+Singapore,2021-04-01,173.0
+Singapore,2021-04-08,165.0
+Singapore,2021-04-15,161.0
+Singapore,2021-04-22,206.0
+Singapore,2021-04-29,182.0
+Singapore,2021-05-06,151.0
+Singapore,2021-05-13,270.0
+Singapore,2021-05-20,227.0
+Singapore,2021-05-27,184.0
+Singapore,2021-06-03,123.0
+Singapore,2021-06-10,116.0
+Singapore,2021-06-17,131.0
+Singapore,2021-06-24,109.0
+Singapore,2021-07-01,73.0
+Singapore,2021-07-08,152.0
+Singapore,2021-07-15,817.0
+Singapore,2021-07-22,968.0
+Singapore,2021-07-29,821.0
+Singapore,2021-08-05,543.0
+Singapore,2021-08-12,381.0
+Singapore,2021-08-19,478.0
+Singapore,2021-08-26,988.0
+Singapore,2021-09-02,1782.0
+Singapore,2021-09-09,4356.0
+Singapore,2021-09-16,7418.0
+Singapore,2021-09-23,12687.0
+Singapore,2021-09-30,19338.0
+Singapore,2021-10-07,22014.0
+Singapore,2021-10-14,23192.0
+Singapore,2021-10-21,25832.0
+Singapore,2021-10-28,23556.0
+Singapore,2021-11-04,19706.0
+Singapore,2021-11-11,17134.0
+Singapore,2021-11-18,12695.0
+Singapore,2021-11-25,8539.0
+Singapore,2021-12-02,5248.0
+Singapore,2021-12-09,3320.0
+Singapore,2021-12-16,2103.0
+Singapore,2021-12-23,2030.0
+Singapore,2021-12-30,3651.0
+Singapore,2022-01-06,5724.0
+Singapore,2022-01-13,7952.0
+Singapore,2022-01-20,31525.0
+Singapore,2022-01-27,34574.0
+Singapore,2022-02-03,66778.0
+Singapore,2022-02-10,85926.0
+Singapore,2022-02-17,127725.0
+Singapore,2022-02-24,125058.0
+Singapore,2022-03-03,117930.0
+Singapore,2022-03-10,90014.0
+Singapore,2022-03-17,69054.0
+Singapore,2022-03-24,46162.0
+Singapore,2022-03-31,33063.0
+Singapore,2022-04-07,24770.0
+Singapore,2022-04-14,3521.0
+United Kingdom,2020-01-31,9.0
+United Kingdom,2020-02-07,8.0
+United Kingdom,2020-02-14,5.0
+United Kingdom,2020-02-21,22.0
+United Kingdom,2020-02-28,250.0
+United Kingdom,2020-03-06,1493.0
+United Kingdom,2020-03-13,4719.0
+United Kingdom,2020-03-20,14364.0
+United Kingdom,2020-03-27,27562.0
+United Kingdom,2020-04-03,33415.0
+United Kingdom,2020-04-10,30350.0
+United Kingdom,2020-04-17,33838.0
+United Kingdom,2020-04-24,32039.0
+United Kingdom,2020-05-01,25592.0
+United Kingdom,2020-05-08,20403.0
+United Kingdom,2020-05-15,17277.0
+United Kingdom,2020-05-22,11682.0
+United Kingdom,2020-05-29,9150.0
+United Kingdom,2020-06-05,7040.0
+United Kingdom,2020-06-12,6870.0
+United Kingdom,2020-06-19,5515.0
+United Kingdom,2020-06-26,2739.0
+United Kingdom,2020-07-03,3852.0
+United Kingdom,2020-07-10,4935.0
+United Kingdom,2020-07-17,4596.0
+United Kingdom,2020-07-24,5159.0
+United Kingdom,2020-07-31,5837.0
+United Kingdom,2020-08-07,6799.0
+United Kingdom,2020-08-14,7364.0
+United Kingdom,2020-08-21,8097.0
+United Kingdom,2020-08-28,10051.0
+United Kingdom,2020-09-04,17736.0
+United Kingdom,2020-09-11,23487.0
+United Kingdom,2020-09-18,34762.0
+United Kingdom,2020-09-25,43829.0
+United Kingdom,2020-10-02,101664.0
+United Kingdom,2020-10-09,111855.0
+United Kingdom,2020-10-16,136877.0
+United Kingdom,2020-10-23,154925.0
+United Kingdom,2020-10-30,157909.0
+United Kingdom,2020-11-06,167089.0
+United Kingdom,2020-11-13,163146.0
+United Kingdom,2020-11-20,121376.0
+United Kingdom,2020-11-27,99782.0
+United Kingdom,2020-12-04,114066.0
+United Kingdom,2020-12-11,161323.0
+United Kingdom,2020-12-18,240527.0
+United Kingdom,2020-12-25,300405.0
+United Kingdom,2021-01-01,400811.0
+United Kingdom,2021-01-08,370970.0
+United Kingdom,2021-01-15,283462.0
+United Kingdom,2021-01-22,200222.0
+United Kingdom,2021-01-29,149014.0
+United Kingdom,2021-02-05,106332.0
+United Kingdom,2021-02-12,84651.0
+United Kingdom,2021-02-19,71339.0
+United Kingdom,2021-02-26,46804.0
+United Kingdom,2021-03-05,40323.0
+United Kingdom,2021-03-12,39207.0
+United Kingdom,2021-03-19,38247.0
+United Kingdom,2021-03-26,31141.0
+United Kingdom,2021-04-02,20057.0
+United Kingdom,2021-04-09,15518.0
+United Kingdom,2021-04-16,17456.0
+United Kingdom,2021-04-23,15812.0
+United Kingdom,2021-04-30,14311.0
+United Kingdom,2021-05-07,16080.0
+United Kingdom,2021-05-14,12955.0
+United Kingdom,2021-05-21,18462.0
+United Kingdom,2021-05-28,26202.0
+United Kingdom,2021-06-04,43126.0
+United Kingdom,2021-06-11,57674.0
+United Kingdom,2021-06-18,83997.0
+United Kingdom,2021-06-25,144107.0
+United Kingdom,2021-07-02,194970.0
+United Kingdom,2021-07-09,259382.0
+United Kingdom,2021-07-16,323131.0
+United Kingdom,2021-07-23,200267.0
+United Kingdom,2021-07-30,181504.0
+United Kingdom,2021-08-06,197180.0
+United Kingdom,2021-08-13,212993.0
+United Kingdom,2021-08-20,236838.0
+United Kingdom,2021-08-27,234440.0
+United Kingdom,2021-09-03,269468.0
+United Kingdom,2021-09-10,207184.0
+United Kingdom,2021-09-17,227058.0
+United Kingdom,2021-09-24,241379.0
+United Kingdom,2021-10-01,239536.0
+United Kingdom,2021-10-08,271348.0
+United Kingdom,2021-10-15,324162.0
+United Kingdom,2021-10-22,295386.0
+United Kingdom,2021-10-29,272629.0
+United Kingdom,2021-11-05,240940.0
+United Kingdom,2021-11-12,274663.0
+United Kingdom,2021-11-19,301013.0
+United Kingdom,2021-11-26,309157.0
+United Kingdom,2021-12-03,333422.0
+United Kingdom,2021-12-10,438173.0
+United Kingdom,2021-12-17,673724.0
+United Kingdom,2021-12-24,981254.0
+United Kingdom,2021-12-31,1271811.0
+United Kingdom,2022-01-07,957083.0
+United Kingdom,2022-01-14,647947.0
+United Kingdom,2022-01-21,634694.0
+United Kingdom,2022-01-28,517602.0
+United Kingdom,2022-02-04,556983.0
+United Kingdom,2022-02-11,339145.0
+United Kingdom,2022-02-18,276092.0
+United Kingdom,2022-02-25,304202.0
+United Kingdom,2022-03-04,386428.0
+United Kingdom,2022-03-11,548120.0
+United Kingdom,2022-03-18,617257.0
+United Kingdom,2022-03-25,536944.0
+United Kingdom,2022-04-01,362326.0
+United Kingdom,2022-04-08,241487.0
+United States,2020-01-22,4.0
+United States,2020-01-29,6.0
+United States,2020-02-05,2.0
+United States,2020-02-12,1.0
+United States,2020-02-19,2.0
+United States,2020-02-26,58.0
+United States,2020-03-04,708.0
+United States,2020-03-11,5730.0
+United States,2020-03-18,50202.0
+United States,2020-03-25,135365.0
+United States,2020-04-01,218755.0
+United States,2020-04-08,211659.0
+United States,2020-04-15,197552.0
+United States,2020-04-22,199918.0
+United States,2020-04-29,189765.0
+United States,2020-05-06,165063.0
+United States,2020-05-13,156345.0
+United States,2020-05-20,149989.0
+United States,2020-05-27,145041.0
+United States,2020-06-03,148844.0
+United States,2020-06-10,158160.0
+United States,2020-06-17,212524.0
+United States,2020-06-24,299394.0
+United States,2020-07-01,355640.0
+United States,2020-07-08,434419.0
+United States,2020-07-15,455426.0
+United States,2020-07-22,455175.0
+United States,2020-07-29,405981.0
+United States,2020-08-05,401889.0
+United States,2020-08-12,346836.0
+United States,2020-08-19,292789.0
+United States,2020-08-26,291637.0
+United States,2020-09-02,257492.0
+United States,2020-09-09,273328.0
+United States,2020-09-16,291499.0
+United States,2020-09-23,294238.0
+United States,2020-09-30,302639.0
+United States,2020-10-07,356583.0
+United States,2020-10-14,428783.0
+United States,2020-10-21,503128.0
+United States,2020-10-28,649366.0
+United States,2020-11-04,855653.0
+United States,2020-11-11,1107498.0
+United States,2020-11-18,1247420.0
+United States,2020-11-25,1172705.0
+United States,2020-12-02,1475625.0
+United States,2020-12-09,1544156.0
+United States,2020-12-16,1518856.0
+United States,2020-12-23,1294233.0
+United States,2020-12-30,1606337.0
+United States,2021-01-06,1751475.0
+United States,2021-01-13,1401891.0
+United States,2021-01-20,1170669.0
+United States,2021-01-27,992102.0
+United States,2021-02-03,764981.0
+United States,2021-02-10,576379.0
+United States,2021-02-17,474968.0
+United States,2021-02-24,459627.0
+United States,2021-03-03,406122.0
+United States,2021-03-10,383363.0
+United States,2021-03-17,377826.0
+United States,2021-03-24,469697.0
+United States,2021-03-31,453137.0
+United States,2021-04-07,501612.0
+United States,2021-04-14,453366.0
+United States,2021-04-21,378272.0
+United States,2021-04-28,338964.0
+United States,2021-05-05,267020.0
+United States,2021-05-12,219716.0
+United States,2021-05-19,170112.0
+United States,2021-05-26,121476.0
+United States,2021-06-02,101707.0
+United States,2021-06-09,95441.0
+United States,2021-06-16,80174.0
+United States,2021-06-23,86834.0
+United States,2021-06-30,101112.0
+United States,2021-07-07,166459.0
+United States,2021-07-14,264201.0
+United States,2021-07-21,426150.0
+United States,2021-07-28,632155.0
+United States,2021-08-04,839487.0
+United States,2021-08-11,990137.0
+United States,2021-08-18,1060993.0
+United States,2021-08-25,1141490.0
+United States,2021-09-01,1057394.0
+United States,2021-09-08,1079004.0
+United States,2021-09-15,956253.0
+United States,2021-09-22,818766.0
+United States,2021-09-29,717737.0
+United States,2021-10-06,630291.0
+United States,2021-10-13,557144.0
+United States,2021-10-20,496399.0
+United States,2021-10-27,521339.0
+United States,2021-11-03,524669.0
+United States,2021-11-10,593369.0
+United States,2021-11-17,670680.0
+United States,2021-11-24,577399.0
+United States,2021-12-01,847052.0
+United States,2021-12-08,842039.0
+United States,2021-12-15,1066410.0
+United States,2021-12-22,1889572.0
+United States,2021-12-29,3937889.0
+United States,2022-01-05,5420763.0
+United States,2022-01-12,5282098.0
+United States,2022-01-19,4564459.0
+United States,2022-01-26,2988459.0
+United States,2022-02-02,1689760.0
+United States,2022-02-09,960524.0
+United States,2022-02-16,588355.0
+United States,2022-02-23,437870.0
+United States,2022-03-02,274455.0
+United States,2022-03-09,215055.0
+United States,2022-03-16,219820.0
+United States,2022-03-23,214253.0
+United States,2022-03-30,186572.0
+United States,2022-04-06,268414.0
+United States,2022-04-13,95735.0
 World,2020-01-22,5023.0
 World,2020-01-29,18319.0
 World,2020-02-05,20915.0
