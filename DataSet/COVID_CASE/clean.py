@@ -16,9 +16,9 @@ for lines in open(filename):
         if country in country_name:
             world_data.append([country, day, newCase])
 
-header = ["Country", "Date", "new_cases"]
+header = ["CountryName", "Date", "new_cases"]
 # Write a new csv, called countryname_case.csv
-csv_name = "fiveCoutry_case.csv"
+csv_name = "Countries_cases.csv"
 file = open(csv_name, "w")
 writer = csv.writer(file)
 writer.writerow(header)

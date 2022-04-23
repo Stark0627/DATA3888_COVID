@@ -9,7 +9,7 @@ new_case_week = 0
 # Record data per week. So i < 7
 i = 0
 initial_country = ""
-filename = "fiveCountry_case.csv"
+filename = "Countries_cases.csv"
 for lines in open(filename):
     if is_first:
         is_first = False
@@ -40,7 +40,7 @@ for lines in open(filename):
             i = 1
 
 header = ["Country", "Date", "new_case_weekly"]
-file = open("weekly_world_case.csv", "w")
+file = open("weekly_world_cases.csv", "w")
 writer = csv.writer(file)
 writer.writerow(header)
 for sublist in week_data:
