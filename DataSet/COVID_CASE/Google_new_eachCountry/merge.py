@@ -13,6 +13,8 @@ for name in country_names:
         else:
             data = lines.strip().split(",")
             country = data[0]
+            if country == "usa":
+                country = "United States"
             date= data[1]
             google_search = data[2]
             all_data.append([country, date, google_search])

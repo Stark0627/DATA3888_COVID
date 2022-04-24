@@ -3,7 +3,8 @@ import csv
 is_first = True
 world_data = []
 # Choose which country you want data for
-country_name = ["World", "United States", "United Kingdom", "Australia", "Canada", "Singapore"]
+country_name = ["World", "Brazil", "Cuba", "France", "Germany", "India", "Iran", "Italy", "Mexico", "Poland", "Spain", "Turkey", "United States", "United Kingdom", "Australia", "Canada", "Singapore"]
+country_name.sort()
 filename = "owid-covid-data.csv"
 for lines in open(filename):
     if is_first:

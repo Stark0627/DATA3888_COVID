@@ -21,10 +21,10 @@ for lines in open(filename):
             initial_country = country
             initial_date = date
         new_case_day = data[2]
+        if new_case_day == "" or new_case_day is None:
+            new_case_day = 0
         if country == initial_country:
             if i < 6:
-                if new_case_day == "" or new_case_day is None:
-                    new_case_day = 0
                 new_case_week += float(new_case_day)
                 i += 1
             elif i == 6:
