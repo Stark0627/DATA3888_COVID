@@ -41,7 +41,7 @@ for lines in open(filename):
 week_data.append([initial_country, initial_date, new_case_week])
 
 header = ["Country", "Date", "new_case_weekly"]
-file = open("weekly_world_cases.csv", "w")
+file = open("Final Dataset/weekly_world_cases.csv", "w")
 writer = csv.writer(file)
 writer.writerow(header)
 for sublist in week_data:
