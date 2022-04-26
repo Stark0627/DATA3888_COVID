@@ -2,7 +2,7 @@ import csv
 
 # Choose which country you want data for
 country_names = ["World", "Brazil", "Cuba", "France", "Germany", "India", "Iran", "Italy", "Mexico", "Poland", "Spain", "Turkey", "usa", "United Kingdom", "Australia", "Canada", "Singapore"]
-
+country_names.sort()
 for name in country_names:
     new_data = []
     filename = name+".csv"
@@ -19,6 +19,8 @@ for name in country_names:
                 covid_search = 0
             else:
                 covid_search = float(covid_search)
+            if name == "usa":
+                name = "United States"
             new_data.append([name, date, covid_search])
 
     header = ["Country", "Date", "search_index"]

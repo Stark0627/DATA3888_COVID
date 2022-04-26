@@ -38,6 +38,7 @@ for lines in open(filename):
             initial_date = date
             initial_country = country
             i = 1
+week_data.append([initial_country, initial_date, new_case_week])
 
 header = ["Country", "Date", "new_case_weekly"]
 file = open("weekly_world_cases.csv", "w")
