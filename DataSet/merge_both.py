@@ -3,6 +3,7 @@ import csv
 is_first_1 = True
 is_first_2 = True
 total_data = []
+# You can change file name here
 Search_file = "AllCountries_Search.csv"
 Covid_file = "weekly_world_cases.csv"
 for lines in open(Covid_file):
