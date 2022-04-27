@@ -1,15 +1,17 @@
 import csv
 
 directory = input("Enter directory: ")
+output_dir = input("Enter output directory: ")
 # Choose which country you want data for
 country_names = ["World", "Brazil", "Cuba", "France", "Germany", "India", "Iran", "Italy", "Mexico", "Poland", "Spain", "Turkey", "usa", "United Kingdom", "Australia", "Canada", "Singapore"]
 country_names.sort()
 for name in country_names:
     new_data = []
-    filename = directory + "/" + name+".csv"
+    filename = directory+"/"+name+".csv"
     index = 0
     try:
         for lines in open(filename):
+            # For Flight and Immigration line will be 1
             if index < 3:
                 index += 1
                 continue
@@ -27,14 +29,16 @@ for name in country_names:
 
         header = ["Country", "Date", "search_index"]
         # Write a new csv for each country
-        csv_name = "Google_new_eachCountry/"+name +"_Search.csv"
+        csv_name = output_dir + "/"+name +"_Search.csv"
         file = open(csv_name, "w")
         writer = csv.writer(file)
         writer.writerow(header)
         for sublist in new_data:
             writer.writerow(sublist)
         file.close()
-    except Exception:
+    except IOError:
         print(filename)
         continue
+    except Exception:
+        print("Other exception")
 

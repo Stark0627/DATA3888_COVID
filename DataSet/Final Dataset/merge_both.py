@@ -4,7 +4,8 @@ is_first_1 = True
 is_first_2 = True
 total_data = []
 # You can change file name here
-Search_file = "AllCountries_Search.csv"
+search_name = input("Enter File Name you want to merge: ")
+Search_file = "AllCountries_"+search_name+".csv"
 Covid_file = "weekly_world_cases.csv"
 for lines in open(Covid_file):
     if is_first_1:
@@ -26,7 +27,8 @@ for lines in open(Covid_file):
                     total_data.append([country, day, newCase, search_index])
 header = ["CountryName", "Date", "new_cases", "Search Index"]
 # Write a new csv, called countryname_case.csv
-csv_name = "finalCOVIDSearch.csv"
+output_name = input("Enter Name you want to output: ")
+csv_name = output_name+".csv"
 file = open(csv_name, "w")
 writer = csv.writer(file)
 writer.writerow(header)
