@@ -3,7 +3,11 @@ import csv
 directory = input("Enter directory: ")
 finalName = input("Give the output filename a name: ")
 # Choose which country you want data for
-country_names = ["World", "Brazil", "Cuba", "France", "Germany", "India", "Iran", "Italy", "Mexico", "Poland", "Spain", "Turkey", "United States", "United Kingdom", "Australia", "Canada", "Singapore"]
+country_names = ["World", "Brazil", "Thailand", "France", "Germany", "India", "Qatar", "Italy", "Netherlands",
+                 "Belgium",
+                 "Spain", "Turkey", "United States", "United Kingdom", "Australia", "Canada", "Singapore", "Vietnam",
+                 "China HongKong", "Russia", "Switzerland", "Japan", "South Korea", "Saudi Arabia",
+                 "United Arab Emirates", "Israel"]
 country_names.sort()
 all_data = []
 for name in country_names:

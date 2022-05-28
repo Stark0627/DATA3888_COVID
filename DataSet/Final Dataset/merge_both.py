@@ -25,6 +25,7 @@ for lines in open(Covid_file):
                 search_index = search_data[2]
                 if country == search_country and day == search_day:
                     total_data.append([country, day, newCase, search_index])
+
 header = ["CountryName", "Date", "new_cases", "Search Index"]
 # Write a new csv, called countryname_case.csv
 output_name = input("Enter Name you want to output: ")
