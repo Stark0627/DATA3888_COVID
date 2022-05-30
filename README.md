@@ -108,11 +108,11 @@ We use python to clean 339 datasets and merge them into one csv file. So there a
 
 - **DataSet/Final Dataset/JoinCSV.ipynb**: I use pyspark to merge 13 files into one CSV file. You can open ipybn in the databrick platform. Python version in databrick is: 3.8.10  [GCC 9.4.0]. 
 
-  ![python_version](/Users/apple/Desktop/DATA3888/python_version.png)
+  ![python_version](python_version.png)
 
   At the end of the notebook, the code will generate a dataframe, click "Download full result (max 1 million rows)"
 
-  <img src="/Users/apple/Desktop/DATA3888/Download csv.png" alt="Download csv" style="zoom:50%;" />
+  ![Download csv](Download csv.png)
 
   We stored this csv file in 'Final Dataset/' and named it 'Final-COVID-Index.csv'
 
