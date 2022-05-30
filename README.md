@@ -112,7 +112,7 @@ We use python to clean 339 datasets and merge them into one csv file. So there a
 
   At the end of the notebook, the code will generate a dataframe, click "Download full result (max 1 million rows)"
 
-  ![Download csv](Download csv.png)
+  ![Download_csv](Download_csv.png)
 
   We stored this csv file in 'Final Dataset/' and named it 'Final-COVID-Index.csv'
 
