@@ -17,7 +17,6 @@ for lines in open(filename):
         population = data[48]
         if country in country_name:
             if country == "Hong Kong":
-                print("HK")
                 country = "China HongKong"
             add_list = [country, population]
             if add_list not in world_data:
@@ -44,7 +43,7 @@ for lines in open(filename):
         all_data.append(row_data)
 
 # print(all_data)
-csv_name = "Final Dataset/Percent_COVID_Index.csv"
+csv_name = "../RMarkdown/Percent_COVID_Index.csv"
 header.append("new_case_percentage")
 # print(header)
 file = open(csv_name, "w")
