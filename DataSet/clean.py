@@ -2,6 +2,7 @@ import csv
 import datetime
 
 
+# Used to calculate the number of days between two dates
 def diffDate(day1, day2):
     d1 = datetime.datetime.strptime(day1, "%Y-%m-%d")
     d2 = datetime.datetime.strptime(day2, "%Y-%m-%d")
@@ -13,6 +14,7 @@ def diffDate(day1, day2):
         return int(diff_day)
 
 
+# Fill 0 into blank date data. It will be filled from January 26, 2020
 def fillDate(diff, country, world_data):
     new_case = 0
     newDeath = 0
@@ -27,16 +29,18 @@ def fillDate(diff, country, world_data):
         first_date = first_date + addDay
 
 
+# Check if it is the first line of the file
 is_first = True
+# Used to store data in files
 world_data = []
 # Choose which country you want data for
 country_name = ["World", "Brazil", "Thailand", "France", "Germany", "India", "Qatar", "Italy", "Netherlands", "Belgium",
                 "Spain", "Turkey", "United States", "United Kingdom", "Australia", "Canada", "Singapore", "Vietnam",
                 "Hong Kong", "Russia", "Switzerland", "Japan", "South Korea", "Saudi Arabia",
                 "United Arab Emirates", "Israel"]
-
 country_name.sort()
 filename = "owid-covid-data.csv"
+# Clean up data, change None data and "" to 0
 for lines in open(filename):
     if is_first:
         is_first = False
@@ -57,7 +61,7 @@ for lines in open(filename):
         newVaccine = data[38]
         if newVaccine == "" or positiveRate is None:
             newVaccine = 0
-        if country in country_name :
+        if country in country_name:
             if day == "2022-04-15":
                 continue
             else:
@@ -74,7 +78,7 @@ for sublist in world_data:
     writer.writerow(sublist)
 file.close()
 
-# use to fill in the date
+# use to fill in the date, starting from 2020-01-26
 is_add = True
 is_first = True
 initial_date = "2020-01-26"

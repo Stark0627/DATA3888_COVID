@@ -9,13 +9,14 @@ country_names = ["World", "Brazil", "Thailand", "France", "Germany", "India", "Q
                  "China HongKong", "Russia", "Switzerland", "Japan", "South Korea", "Saudi Arabia",
                  "United Arab Emirates", "Israel"]
 country_names.sort()
+# Clean Google Search Index file
 for name in country_names:
     new_data = []
     filename = directory + "/" + name + ".csv"
     index = 0
     try:
         for lines in open(filename):
-            # For Flight and Immigration line will be 1
+            # Ignore the first three lines of the CSV file
             if index < 3:
                 index += 1
                 continue
@@ -23,6 +24,7 @@ for name in country_names:
                 data = lines.strip().split(",")
                 date = data[0]
                 covid_search = data[1]
+                # if value is '<1', change it to 0
                 if covid_search == "<1":
                     covid_search = 0
                 else:

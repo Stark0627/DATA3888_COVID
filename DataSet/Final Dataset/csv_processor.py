@@ -7,7 +7,7 @@ import sys
 
 def read(csv_file):
     '''
-    读csv
+    read csv
     :param csv_file:
     :return:
     '''
@@ -20,7 +20,7 @@ def read(csv_file):
 
 def write(content, csv_file):
     '''
-    写csv
+    write csv
     :param content:
     :param csv_file:
     :return:
@@ -35,15 +35,15 @@ def write(content, csv_file):
 
 def process(content, file_name):
     '''
-    处理csv内数据， 使符合预期的格式
+    Process data in CSV to conform to expected format (calculate variable growth rate)
     :param content:
     :param file_name:
     :return:
     '''
-    # 如果已经是6列数据不做处理
+    # If there are already 6 columns, do not process the data
     if len(content[0]) >= 6:
         return
-    # 修改表头
+    # Change header
     header = content[0]
     header.append('new_cases_rate')
     six_row = file_name[5:len(file_name) - 4]
@@ -52,7 +52,7 @@ def process(content, file_name):
     # print(header)
     # print(content[0])
     count = len(content)
-    # 修改 数据行首行
+    # Change first row
     row_one = content[1]
 
     if row_one[2] == '0.0' or row_one[2] == '0':
@@ -68,7 +68,7 @@ def process(content, file_name):
 
     for i in range(2, count):
         row = content[i]
-        if current_country != row[0]:  # 如果换了国家，重置比率初值
+        if current_country != row[0]:  # If you change countries, reset the initial ratio
             if row[2] == '0.0' or row[2] == '0':
                 row.append(0)
             else:
@@ -79,13 +79,13 @@ def process(content, file_name):
                 row.append(1)
             current_country = row[0]
             continue
-        # 增加 new_cases_rate 列
-        new_cases_last = float(content[i - 1][2])  # 上一行的值
+        # add new_cases_rate column
+        new_cases_last = float(content[i - 1][2])  # Value of last row
         row_two = float(row[2])
         if math.isclose(row_two, 0.0, rel_tol=0.1):
             row.append(0)
         else:
-            if math.isclose(new_cases_last, 0,rel_tol=0.1):
+            if math.isclose(new_cases_last, 0, rel_tol=0.1):
                 row.append(1)
             else:
                 row.append('{:.2f}'.format(float(row[2]) / new_cases_last))
@@ -99,17 +99,7 @@ def process(content, file_name):
                 row.append('{:.2f}'.format(float(row[3]) / search_index_last))
 
 
-#def scan_dir(dir_name):
-#    for dirpath, dirnames, filenames in os.walk(dir_name):
-#        if dirnames:
-#            pass
-#        if filenames:
-#            for filename in filenames:
-#                print(filename)
-
-
 def process_csv(csv_file, target=''):
-
     original = read(csv_file_name)
     process(original, csv_file_name)
 
@@ -132,4 +122,3 @@ if __name__ == '__main__':
             process_csv(csv_file_name, sys.argv[2])
         else:
             process_csv(csv_file_name)
-

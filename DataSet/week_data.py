@@ -10,18 +10,19 @@ week_data = []
 initial_date = 0
 # Sum the number of cases in a week
 new_case_week = 0
-# Sum the number of new death
+# Sum the number of new death in a week
 new_death_week = 0
-# Sum the number of test
+# Sum the number of test in a week
 new_test_week = 0
-# Sum the number of vaccine
+# Sum the number of vaccine in a week
 new_vaccine_week = 0
-# Calculate the number of positive rate
+# Calculate the number of positive rate in a week
 positive_rate_week = []
 # Record data per week. So i < 7
 i = 0
 initial_country = ""
 filename = "Countries_cases.csv"
+# The weekly value of the variable is computed
 for lines in open(filename):
     if is_first:
         is_first = False

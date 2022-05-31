@@ -2,11 +2,12 @@ import csv
 is_first = True
 world_data = []
 # Choose which country you want data for
-country_name =  ["World", "Brazil", "Thailand", "France", "Germany", "India", "Qatar", "Italy", "Netherlands", "Belgium",
+country_name = ["World", "Brazil", "Thailand", "France", "Germany", "India", "Qatar", "Italy", "Netherlands", "Belgium",
                 "Spain", "Turkey", "United States", "United Kingdom", "Australia", "Canada", "Singapore", "Vietnam",
                 "Hong Kong", "Russia", "Switzerland", "Japan", "South Korea", "Saudi Arabia",
                 "United Arab Emirates", "Israel"]
 country_name.sort()
+# Get population variables for 25 countries in "owid-covid-data.csv"
 filename = "owid-covid-data.csv"
 for lines in open(filename):
     if is_first:
@@ -26,6 +27,7 @@ all_data = []
 is_first = True
 filename = "Final Dataset/Final-COVID-Index.csv"
 header = ""
+# Calculate the proportion of new_case to population in each country
 for lines in open(filename):
     if is_first:
         is_first = False
@@ -42,10 +44,9 @@ for lines in open(filename):
                 row_data.append(new_case_percent)
         all_data.append(row_data)
 
-# print(all_data)
 csv_name = "../RMarkdown/Percent_COVID_Index.csv"
 header.append("new_case_percentage")
-# print(header)
+
 file = open(csv_name, "w")
 writer = csv.writer(file)
 writer.writerow(header)

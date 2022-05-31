@@ -9,6 +9,7 @@ country_names = ["World", "Brazil", "Thailand", "France", "Germany", "India", "Q
                  "China HongKong", "Russia", "Switzerland", "Japan", "South Korea", "Saudi Arabia",
                  "United Arab Emirates", "Israel"]
 country_names.sort()
+# Consolidate files in a folder into a single file
 all_data = []
 for name in country_names:
     filename = directory + "/" + name+"_Search.csv"

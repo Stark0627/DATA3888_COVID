@@ -7,6 +7,7 @@ total_data = []
 search_name = input("Enter File Name you want to merge: ")
 Search_file = "AllCountries_"+search_name+".csv"
 Covid_file = "weekly_world_cases.csv"
+# Merges the new_cases with the specified Google Search Index csv file
 for lines in open(Covid_file):
     if is_first_1:
         is_first_1 = False
