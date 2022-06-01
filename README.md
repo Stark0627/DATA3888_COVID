@@ -1,5 +1,3 @@
-[TOC]
-
 # DATA3888
 
 ## Dataset
