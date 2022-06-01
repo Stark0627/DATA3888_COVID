@@ -1,0 +1,11 @@
+name: covid_p1
+title:
+username:
+account: covidp1
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 6352799
+bundleId: 5963140
+url: https://covidp1.shinyapps.io/covid_p1/
+when: 1653990020.97614
+lastSyncTime: 1653990020.97614
