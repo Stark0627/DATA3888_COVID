@@ -1,0 +1,727 @@
+---
+title: "Total code"
+output: html_document
+date: '2022-06-01'
+runtime: shiny
+---
+
+```{r, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(dplyr)
+library(plotly)
+library(tidyverse)
+library(gridExtra)
+library(kableExtra)
+library(maps)
+library(viridis)
+library(readr)
+library(readxl)
+library(tibble)
+library(janitor)
+library(reshape2)
+library(ggthemes)
+library(hablar)
+library(factoextra)
+library(pheatmap)
+library(latticeExtra)
+sessionInfo()
+```
+
+
+```{r message=FALSE, warning=FALSE}
+# Read Data From Percent_COVID_Index.csv
+covid_data = read_csv("Percent_COVID_Index.csv")
+covid_data = covid_data %>% convert(num(wfh_rate:socialdistance_rate:medicaltreatment_rate))
+```
+
+
+```{r, warning=FALSE}
+# Set Countries name
+Countries <- c('Australia', 'Belgium', 'Brazil', 'Canada', 'China HongKong', 'France', 'Germany', 'India', 'Israel', 'Italy', 'Japan', 'Netherlands', 'Qatar', 'Russia', 'Saudi Arabia', 'Singapore', 'South Korea', 'Spain', 'Switzerland', 'Thailand', 'Turkey', 'United Arab Emirates', 'United Kingdom', 'United States', 'Vietnam', 'World')
+# Set Columns name (Variable name)
+rates_2 <- c("covid_search_rate", "education_rate", "flight_rate", "export_rate", "immigration_rate", "lockdown_rate", "marriage_rate", "mask_rate", "medicaltreatment_rate", "socialdistance_rate", "travel_rate", "vaccine_rate", "wfh_rate")
+
+## 90 days = 13 weeks，so set the window size to 13
+## Go through every country, Calculate Pearson correlation between each search term and new_case
+windowSize = 13
+## Used to store all correlation coefficients
+corr_all <- c()
+## Traverse the search term
+for (rate_name in rates_2){
+  ## Store country name
+  countries_all <- c()
+  ## Store date
+  date_all <- c()
+  ##  Date_index Used to store the sum of new_ase in Window
+  new_case_all <- c()
+  for (name in Countries){
+    each_country_data = covid_data[covid_data$CountryName==name, ]
+    Date_index = each_country_data$Date
+    ind = seq_len(length(Date_index) - windowSize)
+    df <- data.frame(X = each_country_data[[rate_name]],
+                   Y = each_country_data$new_cases_rate,
+                   Case = each_country_data$new_cases,
+                   Date = Date_index)
+    # Used to store correlation coefficients for each word
+    PearsonStat = rep(NA, length(ind))
+    for (i in 1:length(ind)) {
+      date_all <- append(date_all, df$Date[ind[i]])
+      X_subset <- df$X[df$Date >= df$Date[ind[i]] & df$Date < df$Date[ind[i] + windowSize]]
+      Y_subset <- df$Y[df$Date >= df$Date[ind[i]] & df$Date < df$Date[ind[i] + windowSize]]
+      new_case_week <- sum(df$Case[df$Date >= df$Date[ind[i]] & df$Date < df$Date[ind[i] + windowSize]])
+      new_case_all <- append(new_case_all, new_case_week)
+      PearsonStat[i] <- cor(X_subset, Y_subset, method = "pearson")
+      countries_all <- append(countries_all, name)
+    }
+    corr_all <- append(corr_all, PearsonStat)
+  }
+}
+m1 <- matrix(corr_all, ncol = 13, byrow = FALSE)
+
+## Create the dataframe to store all correlation coefficients in all countries
+d1 <- as.data.frame(m1)
+corr_colnames <- c("covid_search_corr", "education_corr", "flight_corr", "export_corr", "immigration_corr", "lockdown_corr", "marriage_corr", "mask_corr", "medicaltreatment_corr", "socialdistance_corr", "travel_corr", "vaccine_corr", "wfh_corr")
+colnames(d1) <- corr_colnames
+d1["countries_all"] <- countries_all
+d1["date_all"] <- date_all
+d1["new_case_all"] <- new_case_all
+df <- d1[c("countries_all", "date_all", "new_case_all", "covid_search_corr", "education_corr", "flight_corr", "export_corr", "immigration_corr", "lockdown_corr", "marriage_corr", "mask_corr", "medicaltreatment_corr", "socialdistance_corr", "travel_corr", "vaccine_corr", "wfh_corr")]
+
+
+## Calculate the average correlation coefficient of each hot word, and store them into dataframe
+total_avg <-c()
+for (corr_name in corr_colnames){
+  avg <- c()
+  for (name in Countries) {
+      each_country_data = df[df$countries_all==name,]
+      corr = each_country_data[[corr_name]]
+      corr_avg = mean(corr)
+      avg <- append(avg, corr_avg)
+  }
+  total_avg <- append(total_avg, avg)
+}
+avg_matrix <- matrix(total_avg, ncol = 13, byrow = FALSE)
+
+avg_df <- as.data.frame(avg_matrix)
+avg_colnames <- c("avg_covid_search_corr", "avg_education_corr", "avg_flight_corr", "avg_export_corr", "avg_immigration_corr", "avg_lockdown_corr", "avg_marriage_corr", "avg_mask_corr", "avg_medicaltreatment_corr", "avg_socialdistance_corr", "avg_travel_corr", "avg_vaccine_corr", "avg_wfh_corr")
+colnames(avg_df) <- avg_colnames
+avg_df["countries_all"] <- Countries
+avg_df <- avg_df[c("countries_all", "avg_covid_search_corr", "avg_education_corr", "avg_flight_corr", "avg_export_corr", "avg_immigration_corr", "avg_lockdown_corr", "avg_marriage_corr", "avg_mask_corr", "avg_medicaltreatment_corr", "avg_socialdistance_corr", "avg_travel_corr", "avg_vaccine_corr", "avg_wfh_corr")]
+
+
+## Calculate the rank of each word in each country and globally based on the average correlation coefficient of each word
+i = 1
+matrix_rank <- matrix(ncol = 13, nrow = 26)
+country_name <- c()
+for (name in Countries) {
+  country_data <-avg_df[avg_df$countries_all==name, 2:14]
+  country_name <- append(country_name, name)
+  matrix_rank[i,] <- rank(-country_data)
+  i = i+1
+}
+
+## Store the results into dataframe
+df_rank <- data.frame(matrix_rank)
+rank_colnames <- c("covid", "education", "flight", "export", "immigration", "lockdown", "marriage", "mask", "medicaltreatment", "socialdistance", "travel", "vaccine", "wfh")
+colnames(df_rank) <- rank_colnames
+df_rank["CountryName"] <- country_name
+df_rank <- df_rank[c("CountryName", "covid", "education", "flight", "export", "immigration", "lockdown", "marriage", "mask", "medicaltreatment", "socialdistance", "travel", "vaccine", "wfh")]
+```
+
+
+```{r include = FALSE}
+# Construct a matrix of search index -- where each row represents one week, each column represents one counrty
+search_matrix <- covid_data %>% 
+  dplyr::select(CountryName, Date, COVID_search_index) %>%
+  pivot_wider(names_from = CountryName, values_from = COVID_search_index)
+# Convert the matrix into a dataframe
+search_matrix <- search_matrix %>% as.data.frame()
+# Use Date as the row name and exclude the Date column from the search matrix dataframe
+rownames(search_matrix) <- search_matrix$Date
+search_matrix <- search_matrix[, -1]
+
+# Construct a new cases matrix with same procedure
+new_cases_matrix <- covid_data %>% 
+  dplyr::select(CountryName, Date, new_cases) %>%
+  pivot_wider(names_from = CountryName, values_from = new_cases) %>% 
+  as.data.frame()
+rownames(new_cases_matrix) <- new_cases_matrix$Date
+new_cases_matrix <- new_cases_matrix[, -1]
+
+# Find lag time
+n = length(Countries)
+lag_time <- c()
+lag_title <- c()
+for (i in 1:n){
+  # Calculate the ccfvalues between the search index and new cases for each week in each country
+  ccfvalues = ccf(search_matrix[,i], new_cases_matrix[,i])
+  lag_df = do.call(cbind.data.frame, ccfvalues)
+  # Extract the lag time with the highest acf value
+  single_lag_df = lag_df[lag_df$acf == max(lag_df$acf),] 
+  lag_time<- append(lag_time, abs(single_lag_df$lag))
+  title = ""
+  if (single_lag_df$lag > 0) { title = "Search Index lags"}
+  if (single_lag_df$lag < 0) { title = "New Cases lags"}
+  if (single_lag_df$lag == 0) { title = "No lag time"}
+  lag_title<- append(lag_title, title)
+}
+```
+
+
+```{r}
+# Construct a dataframe to outline the lag time in each country
+lag_time_df <- data.frame(Countries, lag_title, lag_time) 
+colnames(lag_time_df) <- c('Country', "Lag", "Offset")
+
+DT::datatable(lag_time_df, options = list(pageLength = 5), caption = "Table 1: Offset Table")
+```
+
+
+```{r}
+covid_full = covid_data
+# List of countries to study
+countries = c("Brazil","France", "Germany", "India","Italy", "Spain", "Turkey", "United States", "United Kingdom", "Australia", "Canada", "Singapore","Thailand","Qatar","Netherlands","Belgium","Vietnam","China HongKong","Russia","Switzerland","Japan","South Korea","Saudi Arabia","United Arab Emirates","Israel")
+#Range the countries and date the column
+countries <- sort(countries)
+covid_full$Date <- as.Date(covid_full$Date)
+## selecting the 25 countries and identify time period. 
+covid <- covid_full[covid_full$CountryName %in% countries, ]
+covid <- covid[ (covid$Date >= "2020-01-26" & covid$Date <= "2022-04-14") , ]
+#crate the table for countries
+ 
+#table(as.character(covid$CountryName)) 
+# get all time index of interest 
+time_index <- seq(as.Date("2020-01-26"), as.Date('2022-04-14'),'days')
+
+covid_alternative <- NULL # create a new data frame to store result 
+
+for ( i in countries){
+  thiscountry <- covid[ covid$CountryName == i , ] 
+  thiscountry <- thiscountry[ match(time_index, thiscountry$Date) , ] 
+  # ensure the time index is in order of the time index, by matching the two vectors 
+  covid_alternative <- rbind(covid_alternative,thiscountry) 
+}
+
+# x is first time series, y is second time series
+l_p_distance <- function(x, y, p){
+    distance = sum((x - y)^p, na.rm = TRUE)^(1/p)
+    return(distance)
+}
+
+#build matrix of new_cases_percentage for each country
+p = 2
+#split the column
+covid_list = split.data.frame(covid[,c("Date","new_case_percentage")], covid$CountryName)
+n = length(countries)
+distance_matrix <- matrix(0, n, n)
+dateindex = covid_list[[1]]$Date
+for (i in 1:n ){
+    for (j in 1:n){
+          index_i = match(covid_list[[i]]$Date, dateindex)
+          index_j = match(covid_list[[j]]$Date, dateindex) 
+          ts_i <- covid_list[[i]][index_i,"new_case_percentage"]
+          ts_j <- covid_list[[j]][index_j,"new_case_percentage"]
+          distance_matrix[i,j] <-  l_p_distance(ts_i, ts_j, p)
+    }
+}
+rownames(distance_matrix) <- colnames(distance_matrix) <- countries
+distance_matrix[!is.finite(distance_matrix)] <- 0
+distance_matrix
+
+	
+rownames(distance_matrix) <- c("Brazil","France", "Germany", "India","Italy", "Spain", "Turkey", "United States", "UK", "Australia", "Canada", "Singapore","Thailand","Qatar","Netherlands","Belgium","Vietnam","HongKong","Russia","Switzerland","Japan","South Korea","Saudi Arabia","United Arab Emirates","Israel")
+colnames(distance_matrix)<- c("Brazil","France", "Germany", "India","Italy", "Spain", "Turkey", "United States", "UK", "Australia", "Canada", "Singapore","Thailand","Qatar","Netherlands","Belgium","Vietnam","HongKong","Russia","Switzerland","Japan","South Korea","Saudi Arabia","United Arab Emirates","Israel")
+
+library(dendextend)
+matrix_dist <- as.dist(distance_matrix)
+#Hierarchical clustering by Ward.D method 
+hclust_res <- hclust( matrix_dist, method = "ward.D")  
+hclust_res=color_branches(hclust_res,k=4,col = c(2,3,4,5))
+plot(hclust_res,main = 'Figure2: Percentage of COVID19 new cases in 25 countries',ylab = 'Height')
+#Separate countries into 4 borders
+rect.dendrogram(hclust_res, k = 4, border =2:5)
+```
+
+```{r}
+## Figure out the average ranking of the lockdown, mask and WFH in the different Clustering group
+red_group <- c('Russia','Turkey','India','Saudi Arabia', 'Japan', 'Thailand','Brazil', 'United Arab Emirates', 'Canada', 'Qatar')
+green_group <- c('South Korea', 'China HongKong', 'Vietnam', 'Germany',  'Singapore')
+dark_blue <- c("Australia", 'United Kingdom', 'Italy', 'Spain', 'United States')
+light_blue <- c('Israel', 'Netherlands', "Belgium", 'France', 'Switzerland')
+# lockdown
+lockdown <- c()
+lockdown_red <- c()
+for (name in red_group) {
+  rank = df_rank[df_rank$CountryName == name, ]$lockdown
+  lockdown_red <- append(lockdown_red, rank)
+}
+lockdown <- c(lockdown, mean(lockdown_red))
+
+lockdown_dark<- c()
+for (name in dark_blue) {
+  rank = df_rank[df_rank$CountryName == name, ]$lockdown
+
+  lockdown_dark <- append(lockdown_dark, rank)
+}
+lockdown <- c(lockdown ,mean(lockdown_dark))
+
+lockdown_light <- c()
+for (name in light_blue) {
+  rank = df_rank[df_rank$CountryName == name, ]$lockdown
+
+  lockdown_light <- append(lockdown_light, rank)
+}
+lockdown <- c(lockdown, mean(lockdown_light))
+
+lockdown_green <- c()
+for (name in green_group) {
+  rank = df_rank[df_rank$CountryName == name, ]$lockdown
+
+  lockdown_green <- append(lockdown_green, rank)
+}
+lockdown <- c(lockdown, mean(lockdown_green))
+
+# mask
+mask <- c()
+mask_red <- c()
+for (name in red_group) {
+  rank = df_rank[df_rank$CountryName == name, ]$mask
+
+  mask_red <- append(mask_red, rank)
+}
+mask <- c(mask, mean(mask_red))
+
+mask_dark<- c()
+for (name in dark_blue) {
+  rank = df_rank[df_rank$CountryName == name, ]$mask
+  mask_dark <- append(mask_dark, rank)
+}
+mask <- c(mask, mean(mask_dark))
+
+mask_light <- c()
+for (name in light_blue) {
+  rank = df_rank[df_rank$CountryName == name, ]$mask
+  mask_light <- append(mask_light, rank)
+}
+mask <- c(mask, mean(mask_light))
+
+mask_green <- c()
+for (name in green_group) {
+  rank = df_rank[df_rank$CountryName == name, ]$mask
+  mask_green <- append(mask_green, rank)
+}
+mask <- c(mask, mean(mask_green))
+
+# wfh
+wfh <- c()
+wfh_red <- c()
+for (name in red_group) {
+  rank = df_rank[df_rank$CountryName == name, ]$wfh
+  wfh_red <- append(wfh_red, rank)
+}
+wfh <- c(wfh, mean(wfh_red))
+
+wfh_dark<- c()
+for (name in dark_blue) {
+  rank = df_rank[df_rank$CountryName == name, ]$wfh
+
+  wfh_dark <- append(wfh_dark, rank)
+}
+wfh <- c(wfh, mean(wfh_dark))
+
+wfh_light <- c()
+for (name in light_blue) {
+  rank = df_rank[df_rank$CountryName == name, ]$wfh
+
+  wfh_light <- append(wfh_light, rank)
+}
+wfh <- c(wfh, mean(wfh_light))
+
+wfh_green <- c()
+for (name in green_group) {
+  rank = df_rank[df_rank$CountryName == name, ]$wfh
+  wfh_green <- append(wfh_green, rank)
+}
+wfh <- c(wfh, mean(wfh_green))
+
+df_cluster <- data.frame(Groups = c('red group', 'dark blue group', 'light blue group', 'green group'),
+                         Lockdown = lockdown,
+                         Mask = mask,
+                         WFH = wfh)
+knitr::kable(df_cluster,'pipe',caption = "Figure3: The average ranking of the three hot words in the four groups")
+```
+```{r}
+#create the pheatmap
+clustering <- pheatmap(distance_matrix, 
+                 cluster_cols = T,
+                 cluster_rows = T,
+                 main = "L^2 distance", 
+                 clustering_method = "ward.D")
+clustering
+```
+
+```{r,warning=FALSE}
+# Run over range of p values
+p_vector <- c( 2, 6, 10)
+covid_list = split.data.frame(covid[,c("Date","new_case_percentage")], covid$CountryName)
+
+LPdistance = function(p)
+{
+  n = length(countries)
+  distance_matrix <- matrix(0, n, n)
+  dateindex = covid_list[[1]]$Date
+  for (i in 1:n ){
+      for (j in 1:n){
+            index_i = match(covid_list[[i]]$Date, dateindex)
+            index_j = match(covid_list[[j]]$Date, dateindex) 
+            ts_i <- covid_list[[i]][index_i,"new_case_percentage"]
+            ts_j <- covid_list[[j]][index_j,"new_case_percentage"]
+            distance_matrix[i,j] <-  l_p_distance(ts_i, ts_j, p)
+      }
+  }
+  rownames(distance_matrix) <- colnames(distance_matrix) <- countries
+  distance_matrix[!is.finite(distance_matrix)] <- 0 ## should be NA
+  return(distance_matrix)
+}
+ 
+## Calculate distance matrix for different p
+distmatrix_list = lapply(p_vector, LPdistance)
+names(distmatrix_list) = paste("p = ", p_vector)
+  
+## Select the matrix to visualize
+clustering_list = list()
+for(i in 1: length(distmatrix_list))
+{
+  clustering_list[i] <- pheatmap(distmatrix_list[[i]], 
+                         cluster_cols = T,
+                         main = names(distmatrix_list)[i],
+                         clustering_method = "ward.D")
+}
+```
+
+```{r}
+# Circle plot part
+#data cleaning
+#Get out of world data
+Final = covid_data[which(covid_data$CountryName != "World"),]
+#group by CountryName,then summarise mean of new_cases_percentage
+data = Final %>% group_by(CountryName) %>% summarise(percent = mean(new_case_percentage)) 
+
+```
+
+```{r}
+
+#Sort countries into different color groups
+#Final = read.csv("Percent_COVID_Index.csv")
+Final = Final[which(Final$CountryName != "World"),]
+#Classify the countries into color clusters
+Final = Final %>%
+  mutate(group = case_when(
+    CountryName == "Australia" ~ "darkblue",
+    CountryName == "United Kingdom" ~ "darkblue",
+    CountryName == "Italy" ~ "darkblue",
+    CountryName == "Spain" ~ "darkblue",
+    CountryName == "United States" ~ "darkblue",
+    CountryName == "Israel" ~ "lightblue",
+    CountryName == "Netherlands" ~ "lightblue",
+    CountryName == "Belgium" ~ "lightblue",
+    CountryName == "France" ~ "lightblue",
+    CountryName == "Switzerland" ~ "lightblue",
+    CountryName == "South Korea" ~ "green",
+    CountryName == "Hong Kong" ~ "green",
+    CountryName == "Vietnam" ~ "green",
+    CountryName == "Germany" ~ "green",
+    CountryName == "Singapore" ~ "green",
+    CountryName == "Russia" ~ "red",
+    CountryName == "Turkey" ~ "red",
+    CountryName == "Saudi Arabia" ~ "red",
+    CountryName == "India" ~ "red",
+    CountryName == "Japan" ~ "red",
+    CountryName == "Thailand" ~ "red",
+    CountryName == "Brazil" ~ "red",
+    CountryName == "United Arab Emirates" ~ "red",
+    CountryName == "Canada" ~ "red",
+    CountryName== "Qatar" ~ "red",
+    CountryName == "World" ~ "gg"))
+#groupby data into countryname and color group.
+data = Final %>% group_by(CountryName, group) %>% summarise(percent = mean(new_case_percentage)) 
+#range the data by group
+data <- data.frame(data %>% arrange(group))
+```
+
+
+```{r,results='hide'}
+#summarise the mean of each group
+data %>% filter(group == "lightblue") %>% summarise(mean(percent))
+data %>% filter(group == "darkblue") %>% summarise(mean(percent))
+data %>% filter(group == "green") %>% summarise(mean(percent))
+data %>% filter(group == "red") %>% summarise(mean(percent))
+```
+
+
+```{r}
+#create circular barplot of different countries
+# Set a number of 'empty bar' to add at the end of each group
+empty_bar <- 4
+to_add <- data.frame(matrix(NA, empty_bar*nlevels(data$group), ncol(data)) )
+colnames(to_add) <- colnames(data)
+to_add$group <- rep(levels(data$group), each=empty_bar)
+data <- rbind(data, to_add)
+data <- data %>% arrange(group)
+data$id <- seq(1, nrow(data))
+
+# Get the name and the y position of each label
+label_data <- data
+number_of_bar <- nrow(label_data)
+angle <- 90 - 360 * (label_data$id-0.5) /number_of_bar     # I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
+label_data$hjust <- ifelse( angle < -90, 1, 0)
+label_data$angle <- ifelse(angle < -90, angle+180, angle)
+ 
+# Make the plot
+
+data$group_factor <- factor(data$group,levels = c("darkblue","green","lightblue","red"),labels = c("darkblue","green","lightblue","red"))
+p <- ggplot(data, aes(x=as.factor(id), y=percent)) +  # Note that id is a factor. If x is numeric, there is some space between the first bar
+  geom_bar(stat="identity", alpha=5, fill=data$group_factor)+ggtitle("new case percentage of each group") +
+  ylim(-5,8) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    panel.grid = element_blank(),
+    plot.margin = unit(rep(-1,4), "cm") 
+  ) +
+  coord_polar() + 
+  geom_text(data=label_data, aes(x=id, y=percent+1, label=CountryName, hjust=hjust), 
+            color="black", fontface="bold",alpha=8, size=2.5, angle= label_data$angle, inherit.aes = FALSE) 
+p
+# Order data
+```
+
+```{r}
+#create 3D box plot the show thea data
+library(latticeExtra)
+#creat the data frame of clusters
+rank = data.frame(
+  policy = as.factor(rep(c("lockdown","mask","WFH"),4)),
+  label_color = as.factor(rep(c("Red","Dark blue","Light blue","Green"),3)),
+  value = as.integer(c(5.2,3.8,7.4,4.8,5.0,5.0,2.8,8.6,7.7,2.4,4.8,3.2)))
+
+#set the color of each bar
+# library(RColorBrewer)
+# mycolors<-brewer.pal(3, "Blues")
+mycolors <- c("Red","Dark blue","Light blue","Green")
+#creat the plot
+cloud(value~label_color+policy,rank, panel.3d.cloud=panel.3dbars,col.facet=mycolors,
+      xbase=0.4, ybase=0.4, scales=list(arrows=FALSE, col="brown"), 
+      par.settings = list(axis.line = list(col = "transparent")))
+```
+
+```{r}
+## Evaluation of Vector Auto-regression model
+### Function --> Create the subset data for specific country
+create_subset <- function(data, country) {
+  model_vars = data %>% 
+    dplyr::filter(CountryName==country) %>% 
+    dplyr::select(new_cases, COVID_search_index, new_death_weekly, new_test_weekly, positive_rate_weekly)
+  return(model_vars)
+}
+
+### Function --> Create vector auto-regression (VAR) model 
+make_var <- function(model_vars, train = 100) {
+  # select the order of the VAR model
+  lag = vars::VARselect(model_vars[1:train,])$selection[4][[1]] + 1
+  # Create the VAR model using 100 weeks with information creteria 'FPE'
+  model = vars::VAR(model_vars[1:train,],lag.max = lag, ic="FPE")
+  return(model)
+}
+
+### Function --> Predict the next week new cases number given --> x: data used for prediction, varest --> VAR model
+VAR.pred <- function(x, varest){
+ lag = varest$p
+ nvars = ncol(varest$y)
+ 
+ # Initialize a coefficient matrix 
+ coefMatrix = matrix(NA, nvars, 1+nvars*lag)
+ 
+ # Fill the coefficient matrix using the equation of VAR model
+ for(k in 1:nvars) {
+   coefMatrix[k, ] = (coef(varest)[[k]])[, 1]
+ }
+
+ # Extract the constant 
+ cst = as.matrix(coefMatrix[, ncol(coefMatrix)])
+ # Exclude the constant column from the coefficient matrix
+ M = coefMatrix[, -ncol(coefMatrix)]
+ # Initialize the matrix for prediction data
+ prediction = matrix(NA, 1, nvars)
+ # subset the data for only the weeks within the lag
+ x_subset = as.matrix(x[nrow(x):(nrow(x)- lag + 1), ])
+ # Apply the equation to data where lag = 1
+ nextWeek = M[, 1:nvars]%*%t(x_subset)[, 1]
+ # Apply the equation to data where lag > 1
+ for(l in 2:lag) {
+  nextWeek = nextWeek + M[, (1 + nvars*(l-1)):(nvars*l)]%*%t(x_subset)[, l]
+ }
+ # Apply the constants
+ nextWeek = nextWeek + cst
+ # Transpose the result matrix and fill them in the prediction martix 
+ prediction[1, ] = t(nextWeek) 
+
+ result = data.frame(prediction)
+ names(result) = dimnames(x)[[2]]
+ return(result)
+}
+
+### Function --> Test the VAR model using test data from test start to test end
+test_var <- function(model, data, test_start, test_end) {
+  predictions = c()
+  truevals=c()
+  # Iteratively conduct one-step forcast
+  for (i in test_start:test_end) {
+    pred = VAR.pred(x = data[1:i,] ,varest = model)[1][[1]]
+    trueval = data[i+1,1][[1]]
+    truevals = c(truevals, trueval)
+    predictions = c(predictions, pred)
+  }
+  return(data.frame(prediction = predictions, actual = truevals))
+}
+
+### Function (For Shiny App) --> Output the predicted new cases number (next week) and trend for a specific country and date 
+prediction_result <- function(date, country, covid_data) {
+  date_filter = covid_data %>% dplyr::filter(CountryName==country) %>% dplyr::select(Date)
+  dates = as.character(date_filter$Date)
+  this_week = which(dates == date)
+  target_data = create_subset(data = covid_data,country = country)
+  model = make_var(target_data, train = 100)
+  direction = ""
+  next_week_case = VAR.pred(x = target_data[1:this_week,], varest = model)[,1]
+  if (next_week_case > target_data$new_cases[this_week]) {
+    direction = "increase"
+  }
+  if (next_week_case < target_data$new_cases[this_week]) {
+    direction = "decrease"
+  }
+  if (next_week_case == target_data$new_cases[this_week]) {
+    direction = "level"
+  }
+  return(data.frame(new_case_next_week = next_week_case, direction = direction))
+}
+
+### Function --> Draw the line plot for predicted and actual new cases and return it
+draw_compare_ret <- function(comparison_data) {
+  comparison_data = cbind(week = 1:nrow(comparison_data), comparison_data)
+  d <- melt(comparison_data, id.vars=c("week"))
+  plot = ggplot(d, aes(x=week, y=value, col=variable)) + geom_point() + geom_line() + 
+    xlab("Week")+ ylab("New Cases") + ggtitle(stringr::str_glue("{country}")) + 
+    theme(text = element_text(size = 10), 
+          legend.position = "bottom",
+          legend.text = element_text(size = 10),
+          plot.title = element_text(family = "serif", face = "bold", size = 10, hjust = 0.5, 
+                                    vjust = 2, angle = 0, lineheight = 20, margin = margin(20, 0, 0, 0)), 
+          plot.caption = element_text(hjust = 0.5, colour = "brown4"), plot.caption.position = "panel")
+  return(plot)
+}
+
+### Function --> Return a data frame that store the predicted and actual trend of the new cases for the testing data
+test_direction <- function(model, data, test_start, test_end) {
+  predictions = c()
+  truedirs=c()
+
+  for (i in test_start:test_end) {
+    pred = VAR.pred(x = data[1:i,] ,varest = model)[1][[1]]
+    this_week = data[i,1][[1]]
+    trueval = data[i+1,1][[1]]
+    truedir = ""
+    pred_dir = ""
+    if (trueval > this_week) { truedir = "increase"}
+    if (trueval < this_week) { truedir = "decrease"}
+    if (trueval == this_week) {truedir = "level"}
+    if (pred > this_week) {pred_dir = "increase"}
+    if (pred < this_week) { pred_dir = "decrease"}
+    if (pred == this_week) {pred_dir = "level"}
+    truedirs = c(truedirs, truedir)
+    predictions = c(predictions, pred_dir)
+  }
+  return(data.frame(prediction = predictions, actual = truedirs))
+}
+
+# Filter out the country name
+distinct_countries = c(covid_data[,1] %>% dplyr::distinct(CountryName))
+n_countries = lengths(distinct_countries)
+trend_accuracy = c()
+MAE_all = c()
+RMSE_all = c()
+MAPE_all = c()
+
+for (i in 1:n_countries) {
+  country = distinct_countries$CountryName[[i]]
+  ## Exclude the countries that do not have sufficient data to make prediction
+  if (country != "Brazil" && country != "Qatar" && country != "Singapore" && country != "Vietnam" && country != "World") {
+  
+  # VAR model for each country
+  model = make_var(create_subset(data = covid_data,country = country), train = 100)
+  
+  # result --> Actual new cases, predicted new cases
+  result = test_var(model, data = create_subset(data = covid_data,country = country), test_start = 100, test_end=115)
+  
+  # Calculate the Mean Average Error(MAE) and Root Mean Squared Error(RMSE)
+  MAE = Metrics::mae(actual = result$actual, predicted = result$prediction)
+  RMSE = Metrics::rmse(actual = result$actual, predicted = result$prediction)
+  MAPE = MLmetrics::MAPE(result$prediction, result$actual)
+  MAE_all = append(MAE_all, round(MAE,digit =2))
+  RMSE_all = append(RMSE_all, round(RMSE, digit = 2))
+  MAPE_all = append(MAPE_all, MAPE)
+  
+  
+  
+  # direction result --> Actual trend for new cases, predicted trend for new cases
+  direction_result = test_direction(model, data = create_subset(data = covid_data,country = country), test_start = 100, test_end=115)
+  trend_accuracy = c(trend_accuracy, round(mean(direction_result$prediction == direction_result$actual), digit = 2)*100)
+  }
+}
+```
+
+```{r warning=FALSE, fig.height=20, fig.width=16}
+## Output the line plot for predicted and actual new cases for every country
+myplots <- list()
+j = 1
+for (i in 1:n_countries) {
+  country = distinct_countries$CountryName[[i]]
+  if (country != "Brazil" && country != "Qatar" && country != "Singapore" && country != "Vietnam" && country != "World") {
+    # Apply function to get the prediction result and graph
+    result = test_var(make_var(create_subset(data = covid_data,country = country), train = 100), data = create_subset(data = covid_data,country = country), test_start = 100, test_end=115)
+    myplots[[j]] = draw_compare_ret(result)
+    j = j + 1
+  }
+}
+
+# Combine the graphs for different countries into one figure and added title,caption to it
+figure2 <- ggpubr::ggarrange(plotlist = myplots, ncol=3, nrow=7, common.legend = TRUE, legend="bottom")
+title <- expression(atop(bold("Actual vs predicted new cases in different countries"), scriptstyle("Figure 2: This figure shows forecasting result on the VAR model, visually compare the actual and predicted new csaes in different countries for the testing data (16 weeks)")))
+ggpubr::annotate_figure(figure2,top= ggpubr::text_grob(title, size = 18))
+```
+
+
+```{r}
+Countries <- c("Australia", "Belgium", "Canada", "France", "Germany", "HongKong(China)", "India", "Israel", "Italy","Japan", "Netherlands", "Russia", "Saudi Arabia", "South Korea", "Spain", "Switzerland", "Thailand", "Turkey", "United Arab Emirates", "United Kingdom", "United States")
+
+mean_trend_accuracy = mean(trend_accuracy) # 0.7410714
+
+# Put all evaluation value into a dataframe
+var_evaluate_df <- data.frame(Countries, MAPE_all, MAE_all, RMSE_all, trend_accuracy) 
+
+# Convert the infinity to 0 for rounding
+MAPE_all[!is.finite(MAPE_all)] <- 0
+var_evaluate_df$MAPE_all <- round(var_evaluate_df$MAPE_all, digit = 2)*100
+
+# Convert 0 back to infinity to keep the data valid and authentic
+for (i in 1:length(var_evaluate_df$MAPE_all)) {
+  if (var_evaluate_df$MAPE_all[i] == 0 ){var_evaluate_df$MAPE_all[i] == Inf}
+}
+
+colnames(var_evaluate_df) <- c('Country', 'MAPE (%)', 'MAE', 'RMSE', 'Trend Accuracy (%)')
+DT::datatable(var_evaluate_df, options = list(pageLength = 5), caption = "Figure 3: Evaluation table of VAR model")
+```
+
+
