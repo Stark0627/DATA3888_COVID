@@ -1,3 +1,5 @@
+[TOC]
+
 # DATA3888
 
 ## Dataset
@@ -133,4 +135,6 @@ The project's code and reports are integrated into an Rmd file called "Report." 
 
 ## Shiny App
 
-The code for Shiny App and associated data files are stored in directories for Shiny
+The code for Shiny App and associated data files are stored in directories for Shiny.
+
+Shiny web page link: https://covidp1.shinyapps.io/covid_p1/
