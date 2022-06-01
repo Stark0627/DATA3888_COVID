@@ -1,4 +1,5 @@
 # DATA3888
+
 ## Dataset
 
 Our data comes from these two sites:
@@ -128,7 +129,7 @@ We use python to clean 339 datasets and merge them into one csv file. So there a
 
 ## Project and Report RMarkdown
 
-The project's code and reports are integrated into an Rmd file called "Report." This file is saved in the RMarkdown directory
+The project's code and reports are integrated into an Rmd file called "Report." This file is saved in the RMarkdown directory. Completed Code red file is saved in the RMarkdown directory.
 
 ## Shiny App
 
